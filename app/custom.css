@@ -9,11 +9,7 @@ body {
 }
 
 .hero-section {
-  background-image: url('https://images.pexels.com/photos/15875672/pexels-photo-15875672.jpeg');
-  position: relative;
-  background-color: #111111;
-  background-size: cover;
-  background-position: center;
+  
   color: #ffffff;
   padding-top: 5rem;
   padding-bottom: 5rem;

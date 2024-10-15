@@ -1,38 +1,35 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-export default function Biography({ domain }) {
+export default function Biography({ profile, social, links}) {
   const experiences = [
-    { label: "Slogan", description: "Say less, Do more" },
-    { label: "Affiliations", description: "Member of Team Sports Ministries, FAU Alumni, American Marketing Association Alumni" },
-    { label: "Achievements", description: "2x HS State Champion, Won Class Clown in HS, Awarded Board Member at Many Organizations," },
-    { label: "Languages", description: "English" }
+    { label: "Slogan", description: profile.slogan },
+    { label: "Affiliations", description: profile.affiliations},
+    { label: "Achievements", description: profile.achievements},
+    { label: "Languages", description: profile.languages }
   ];
 
   const location = [
-    { label: "Current Location", value: "United States" },
-    { label: "Hometown", value: "Hialeah" }
+    { label: "Current Location", value: profile.location},
+    { label: "Hometown", value: profile.hometown}
   ];
 
   const socials = [
-    { socialName: "Twitter", url: "https://twitter.com/JackTaylor" },
-    { socialName: "Facebook", url: "https://facebook.com/JackTaylor" },
-    { socialName: "Instagram", url: "https://instagram.com/JackTaylor" }
+    { socialName: "Twitter", url: social.twitter },
+    { socialName: "Facebook", url: social.facebook },
+    { socialName: "Instagram", url: social.instagram }
   ];
 
-  const links = [
-    { linkName: "JackTaylor", url: "https://teetribe21.com/" },
-    { linkName: "JackTaylor eBay Shop", url: "https://www.ebay.com/str/JackTaylor" }
-  ];
+  
 
   return (
     <section className="aboutme-bg py-5" id="about">
       <div className="container py-5">
         <div className="row">
           <div className="col-md-12 mb-4">
-            <h2 className="section-title mb-4">Jack Taylor</h2>
+            <h2 className="section-title mb-4">{profile.name}</h2>
             <p>
-            Hi, I help businesses grow their online presence and market better for their business. I am an entrepreneur who loves to learn and try new ventures. Always open to connecting!
+            {profile.introduction}
             </p>
             {experiences.map((item, index) => (
               <div key={index} className="experience-item">
@@ -59,22 +56,26 @@ export default function Biography({ domain }) {
           <div className="col-md-4 mb-4">
             <h2 className="section-title mb-4">Socials</h2>
             {socials.map((social, index) => (
+                social.url  && (
               <div key={index} className="social-item">
                 <h5>
-                  {social.socialName}: <a href={social.url} target="_blank" rel="noopener noreferrer">{social.url}</a>
+                 <a href={social.url} target="_blank" rel="noopener noreferrer">{social.url}</a>
                 </h5>
               </div>
+                )
             ))}
           </div>
           
           <div className="col-md-4 mb-4">
             <h2 className="section-title mb-4">Links</h2>
             {links.map((link, index) => (
+               link.title  && (
               <div key={index} className="link-item">
                 <h5>
-                  {link.linkName}: <a href={link.url} target="_blank" rel="noopener noreferrer">{link.url}</a>
+                 <a href={link.link} target="_blank" rel="noopener noreferrer">{link.link}</a>
                 </h5>
               </div>
+              )
             ))}
           </div>
         </div>
