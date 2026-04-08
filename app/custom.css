@@ -1,118 +1,678 @@
-body {
-    background-color: #111111;
-}
+/* ============================
+   NAVIGATION
+   ============================ */
 .navigation-bg {
-  background-color: #111111;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  transition: all var(--transition-smooth);
 }
-.navigation-bg a {
+
+.navigation-bg.scrolled {
+  background: rgba(10, 10, 10, 0.95);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.nav-brand {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--text-primary);
   text-decoration: none;
+  letter-spacing: -0.02em;
 }
 
+.nav-brand .accent-dot {
+  color: var(--accent-primary);
+}
+
+.nav-link-custom {
+  color: var(--text-secondary) !important;
+  text-decoration: none !important;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 1rem;
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.nav-link-custom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent-primary);
+  transition: all var(--transition-fast);
+  transform: translateX(-50%);
+}
+
+.nav-link-custom:hover {
+  color: var(--text-primary) !important;
+}
+
+.nav-link-custom:hover::after {
+  width: 70%;
+}
+
+/* ============================
+   HERO SECTION
+   ============================ */
 .hero-section {
-  
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
   color: #ffffff;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-  z-index: 1;
-  background-blend-mode: overlay;
+  overflow: hidden;
+  padding-top: 80px;
 }
 
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.92) 0%,
+    rgba(10, 10, 10, 0.7) 50%,
+    rgba(10, 10, 10, 0.85) 100%
+  );
+  z-index: 1;
+}
+
+.hero-bg-overlay::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(transparent, var(--bg-primary));
+}
+
+.hero-accent-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gradient-sport);
+  z-index: 1001;
+}
 
 .hero-section .container {
   position: relative;
   z-index: 2;
 }
 
-  
-  .container-padding {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(197, 248, 42, 0.1);
+  border: 1px solid rgba(197, 248, 42, 0.2);
+  color: var(--accent-primary);
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.hero-tag-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.hero-name {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.6s ease 0.1s forwards;
+  opacity: 0;
+}
+
+.hero-name .accent-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-name .accent-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0.05em;
+  left: 0;
+  width: 100%;
+  height: 0.12em;
+  background: var(--accent-primary);
+  opacity: 0.3;
+  border-radius: 2px;
+}
+
+.hero-slogan {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 520px;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.6s ease 0.2s forwards;
+  opacity: 0;
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeInUp 0.6s ease 0.3s forwards;
+  opacity: 0;
+}
+
+.btn-sport {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-sport:hover {
+  background: var(--accent-primary-hover);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(197, 248, 42, 0.3);
+}
+
+.btn-sport-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 2rem;
+  border: 1px solid var(--border-accent);
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.btn-sport-outline:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: rgba(197, 248, 42, 0.05);
+}
+
+.hero-image-wrapper {
+  position: relative;
+  animation: fadeIn 0.8s ease 0.4s forwards;
+  opacity: 0;
+}
+
+.hero-image-frame {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.hero-image-frame::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: var(--gradient-sport);
+  border-radius: 20px;
+  opacity: 0.4;
+  z-index: -1;
+  filter: blur(8px);
+}
+
+.hero-profile-img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 2px solid rgba(197, 248, 42, 0.15);
+}
+
+.hero-stats-bar {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  animation: fadeInUp 0.6s ease 0.5s forwards;
+  opacity: 0;
+}
+
+.hero-stat {
+  text-align: left;
+}
+
+.hero-stat-value {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.hero-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+/* ============================
+   SECTION COMMON
+   ============================ */
+.section-dark {
+  background-color: var(--bg-primary);
+}
+
+.section-surface {
+  background-color: var(--bg-secondary);
+}
+
+.section-heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-primary);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.section-divider {
+  width: 50px;
+  height: 3px;
+  background: var(--accent-primary);
+  border: none;
+  margin-bottom: 2rem;
+  border-radius: 2px;
+}
+
+/* ============================
+   GALLERY / PORTFOLIO
+   ============================ */
+.gallery-section {
+  background-color: var(--bg-secondary);
+  position: relative;
+}
+
+.gallery-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-accent), transparent);
+}
+
+.gallery-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg-surface);
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+  border: 1px solid transparent;
+}
+
+.gallery-item:hover {
+  transform: translateY(-6px);
+  border-color: rgba(197, 248, 42, 0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 50%,
+    rgba(10, 10, 10, 0.8) 100%
+  );
+  opacity: 0;
+  transition: opacity var(--transition-smooth);
+  pointer-events: none;
+}
+
+.gallery-item:hover::after {
+  opacity: 1;
+}
+
+.gallery-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform var(--transition-smooth);
+}
+
+.gallery-item:hover .gallery-image {
+  transform: scale(1.05);
+}
+
+.gallery-item-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem;
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all var(--transition-smooth);
+}
+
+.gallery-item:hover .gallery-item-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-item-number {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 992px) {
+  .gallery-container {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .shape-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 500px;
-    margin: auto;
+}
+
+@media (max-width: 576px) {
+  .gallery-container {
+    grid-template-columns: 1fr;
   }
-  
-  .background-shape {
-    position: absolute;
-    width: 100%;
-    padding-bottom: 100%;
-    background: #222222;
-    border-radius: 50%;
-    left: 0;
-    z-index: -1;
-  }
-  
-  .responsive-image {
-    width: 100%;
-    height: auto;
-    border-radius: 50%;
-  }
-  
-  .aboutme-bg {
-    background-color: #222222;
-    color: #ffffff;
+}
+
+/* ============================
+   BIOGRAPHY / ABOUT
+   ============================ */
+.about-section {
+  background-color: var(--bg-primary);
+  position: relative;
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-accent), transparent);
+}
+
+.about-intro {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+}
+
+.info-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all var(--transition-smooth);
+}
+
+.info-card:hover {
+  border-color: rgba(197, 248, 42, 0.15);
+  background: var(--bg-surface-hover);
+  transform: translateX(4px);
+}
+
+.info-card-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-primary);
+  margin-bottom: 0.5rem;
+}
+
+.info-card-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.detail-block {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  height: 100%;
+  transition: all var(--transition-smooth);
+}
+
+.detail-block:hover {
+  border-color: rgba(197, 248, 42, 0.1);
+}
+
+.detail-block-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-primary);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.detail-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 0.6rem 0;
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+  word-break: break-all;
+}
+
+.detail-link:hover {
+  color: var(--accent-primary);
+  transform: translateX(4px);
+}
+
+.detail-link-icon {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.social-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.6rem 1.25rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.social-badge:hover {
+  background: rgba(197, 248, 42, 0.1);
+  border-color: rgba(197, 248, 42, 0.3);
+  color: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+.social-badge svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ============================
+   FOOTER
+   ============================ */
+.footer-section {
+  background: var(--bg-secondary);
+  position: relative;
+  border-top: 1px solid var(--border-color);
+}
+
+.footer-section::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-sport);
+  opacity: 0.4;
+}
+
+.footer-brand {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.footer-text {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  margin-left: 0.5rem;
+}
+
+.footer-social-link:hover {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--bg-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(197, 248, 42, 0.25);
+}
+
+.footer-social-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.footer-copyright {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-copyright .accent {
+  color: var(--accent-primary);
+}
+
+/* ============================
+   RESPONSIVE UTILITIES
+   ============================ */
+@media (max-width: 768px) {
+  .hero-name {
+    font-size: clamp(2rem, 8vw, 3rem);
   }
 
-  .aboutme-bg .icon-shape svg {
-    width: 48px;
+  .hero-stats-bar {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .gallery-container {
-    column-count: 3;
-    column-gap: 16px;
+    gap: 0.75rem;
   }
-  
-  .gallery-item {
-    background: #222222;
-    padding: 15px;
-    display: inline-block;
-    margin-bottom: 16px;
-    border-radius: 8px;
-    overflow: hidden;
-    width: 100%;
-  }
-  
-  .gallery-image {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  .vital-stat-item {
-    min-width: 120px;
-    margin-right: 20px;
-  }
-  .vital-stat-label,
-  .vital-stat-value {
-    display: block;
-  }
-  
-    
-  @media (max-width: 992px) {
-    .gallery-container {
-      column-count: 2;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .gallery-container {
-      column-count: 1;
-    }
-  }
-
-  .footer-bg {
-    background-color: #111111;
-  }
-
-  footer .social-icons svg {
-    width: 24px;
-  }
-
-  .experience-label svg, .location-label svg {
-    width: 10px;
-    margin-right: 5px;
-  }
+}
