@@ -11,7 +11,7 @@ export default function Gallery({ gallery}) {
         {gallery.map((url, index) => (
             <div key={index} className="gallery-item">
               <Image
-                src={`https://www.profilesuite.com/uploads/gallery/`+url.filename}
+                src={`https://profilesuite-assets.s3.us-west-2.amazonaws.com/uploads/gallery/`+url.filename}
                 alt={`Gallery Image ${index + 1}`}
                 width={300}
                 height={200}

@@ -5,7 +5,7 @@ export default function Hero({ profile, gallery }) {
     <section
       className="hero-section"
       style={{
-        backgroundImage: `url('${gallery.length>0 ? 'https://www.profilesuite.com/uploads/gallery/'+gallery[0].filename : 'https://www.profilesuite.com/uploads/profile/'+profile?.profile_image}')`,
+        backgroundImage: `url('${gallery.length>0 ? 'https://profilesuite-assets.s3.us-west-2.amazonaws.com/uploads/gallery/'+gallery[0].filename : 'https://profilesuite-assets.s3.us-west-2.amazonaws.com/uploads/profile/'+profile?.profile_image}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -24,7 +24,7 @@ export default function Hero({ profile, gallery }) {
           </div>
           <div className="col-md-5">
             <Image
-              src={`https://www.profilesuite.com/uploads/profile/${profile?.profile_image}`}
+              src={`https://profilesuite-assets.s3.us-west-2.amazonaws.com/uploads/profile/${profile?.profile_image}`}
               alt={profile.name}
               width={500}
               height={500}
