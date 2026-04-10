@@ -3,8 +3,8 @@ import Image from "next/image";
 export default function Hero({ profile, gallery }) {
   const bgImage =
     gallery.length > 0
-      ? `https://profilesuite-assets.s3.us-west-2.amazonaws.com/gallery/${gallery[0].filename}`
-      : `https://profilesuite-assets.s3.us-west-2.amazonaws.com/profiles/${profile?.profile_image}`;
+      ? `https://profilesuite-assets.s3.us-west-2.amazonaws.com/${gallery[0].filename}`
+      : `https://profilesuite-assets.s3.us-west-2.amazonaws.com/${profile?.profile_image}`;
 
   return (
     <section
@@ -130,7 +130,7 @@ export default function Hero({ profile, gallery }) {
             <div className="hero-image-wrapper">
               <div className="hero-image-frame">
                 <Image
-                  src={`https://profilesuite-assets.s3.us-west-2.amazonaws.com/profiles/${profile?.profile_image}`}
+                  src={`https://profilesuite-assets.s3.us-west-2.amazonaws.com/${profile?.profile_image}`}
                   alt={profile.name}
                   width={500}
                   height={500}
