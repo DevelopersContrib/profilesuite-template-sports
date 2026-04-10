@@ -82,7 +82,6 @@ const ImageSlider = ({ profile, gallery }) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <p className="slider-hint">Drag to explore</p>
     </div>
   );
 };

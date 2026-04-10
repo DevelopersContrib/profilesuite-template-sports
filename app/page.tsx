@@ -2,6 +2,7 @@ import Navigation from "../components/navigation";
 import Hero from "../components/hero";
 import Gallery from "../components/gallery";
 import Biography from "../components/biography";
+import Schedule from "../components/schedule";
 import Footer from "../components/footer";
 import { getDomain, getProfile, updateProfile } from "../lib/data";
 
@@ -20,6 +21,7 @@ export default async function Home() {
       <Hero profile={profile} gallery={gallery} />
       <Gallery gallery={gallery} />
       <Biography profile={profile} social={social} links={links} />
+      <Schedule />
       <Footer domain={domain} social={social} />
     </>
   );
