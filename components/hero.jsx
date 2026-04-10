@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ImageSlider from "./slider/ImageSlider";
 
 export default function Hero({ profile, gallery }) {
   const bgImage =
@@ -12,7 +12,7 @@ export default function Hero({ profile, gallery }) {
       style={{
         backgroundImage: `url('${bgImage}')`,
         backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundPosition: "center"
       }}
     >
       <div className="hero-accent-line" />
@@ -99,7 +99,9 @@ export default function Hero({ profile, gallery }) {
                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                       </svg>
                     </div>
-                    <div className="hero-stat-label">{profile.affiliations}</div>
+                    <div className="hero-stat-label">
+                      {profile.affiliations}
+                    </div>
                   </div>
                 )}
                 {profile.hometown && (
@@ -127,18 +129,7 @@ export default function Hero({ profile, gallery }) {
           </div>
 
           <div className="col-lg-5">
-            <div className="hero-image-wrapper">
-              <div className="hero-image-frame">
-                <Image
-                  src={`https://profilesuite-assets.s3.us-west-2.amazonaws.com/uploads/profile/${profile?.profile_image}`}
-                  alt={profile.name}
-                  width={500}
-                  height={500}
-                  className="hero-profile-img"
-                  priority
-                />
-              </div>
-            </div>
+            <ImageSlider profile={profile} gallery={gallery} />
           </div>
         </div>
       </div>
