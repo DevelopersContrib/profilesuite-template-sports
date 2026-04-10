@@ -15,7 +15,7 @@ const ImageSlider = ({ profile, gallery }) => {
       <div className="hero-image-wrapper">
         <div className="hero-image-frame">
           <Image
-            src={`https://profilesuite-assets.s3.us-west-2.amazonaws.com/uploads/profile/${profile?.profile_image}`}
+            src={`https://profilesuite-assets.s3.us-west-2.amazonaws.com/${profile?.profile_image}`}
             alt={profile?.name || "Profile"}
             width={500}
             height={500}
@@ -33,7 +33,7 @@ const ImageSlider = ({ profile, gallery }) => {
         <div className="slider-glow" />
         <div className="cards-single">
           <Image
-            src={`https://profilesuite-assets.s3.us-west-2.amazonaws.com/uploads/gallery/${gallery[0].filename}`}
+            src={`https://profilesuite-assets.s3.us-west-2.amazonaws.com/${gallery[0].filename}`}
             alt={`${profile?.name || "Gallery"} - Photo`}
             width={400}
             height={500}
@@ -63,7 +63,7 @@ const ImageSlider = ({ profile, gallery }) => {
         {gallery.map((item, index) => (
           <SwiperSlide key={index} className="cards-slide">
             <Image
-              src={`https://profilesuite-assets.s3.us-west-2.amazonaws.com/uploads/gallery/${item.filename}`}
+              src={`https://profilesuite-assets.s3.us-west-2.amazonaws.com/${item.filename}`}
               alt={`${profile?.name || "Gallery"} - Photo ${index + 1}`}
               width={400}
               height={500}
