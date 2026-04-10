@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getGalleryUrl } from "@/lib/utils";
 
 export default function Gallery({ gallery }) {
   if (!gallery || gallery.length === 0) return null;
@@ -14,7 +15,7 @@ export default function Gallery({ gallery }) {
           {gallery.map((item, index) => (
             <div key={index} className="gallery-item">
               <Image
-                src={`https://profilesuite-assets.s3.us-west-2.amazonaws.com/${item.filename}`}
+                src={getGalleryUrl(item.filename)}
                 alt={`Gallery Image ${index + 1}`}
                 width={400}
                 height={300}

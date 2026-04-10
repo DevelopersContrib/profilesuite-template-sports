@@ -1,6 +1,7 @@
 "use client";
 import { Clock, Ruler, Weight } from "lucide-react";
 import ImageSlider from "./slider/ImageSlider";
+import { getGalleryUrl, getProfileUrl } from "@/lib/utils";
 
 const SPORT = "Basketball";
 const POSITION = "Forward";
@@ -11,8 +12,8 @@ const AGE = 21;
 export default function Hero({ profile, gallery }) {
   const bgImage =
     gallery.length > 0
-      ? `https://profilesuite-assets.s3.us-west-2.amazonaws.com/${gallery[0].filename}`
-      : `https://profilesuite-assets.s3.us-west-2.amazonaws.com/${profile?.profile_image}`;
+      ? getGalleryUrl(gallery[0].filename)
+      : getProfileUrl(profile?.profile_image);
 
   return (
     <section
