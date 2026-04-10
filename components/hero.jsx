@@ -3,8 +3,8 @@ import ImageSlider from "./slider/ImageSlider";
 export default function Hero({ profile, gallery }) {
   const bgImage =
     gallery.length > 0
-      ? `https://profilesuite-assets.s3.us-west-2.amazonaws.com/uploads/gallery/${gallery[0].filename}`
-      : `https://profilesuite-assets.s3.us-west-2.amazonaws.com/uploads/profile/${profile?.profile_image}`;
+      ? `https://profilesuite-assets.s3.us-west-2.amazonaws.com/${gallery[0].filename}`
+      : `https://profilesuite-assets.s3.us-west-2.amazonaws.com/${profile?.profile_image}`;
 
   return (
     <section
@@ -12,7 +12,7 @@ export default function Hero({ profile, gallery }) {
       style={{
         backgroundImage: `url('${bgImage}')`,
         backgroundSize: "cover",
-        backgroundPosition: "center"
+        backgroundPosition: "center",
       }}
     >
       <div className="hero-accent-line" />
@@ -34,7 +34,7 @@ export default function Hero({ profile, gallery }) {
                   </span>
                 ) : (
                   <span key={i}>{word} </span>
-                )
+                ),
               )}
             </h1>
 
