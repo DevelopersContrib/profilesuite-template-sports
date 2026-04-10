@@ -1,4 +1,12 @@
+"use client";
+import { Clock, Ruler, Weight } from "lucide-react";
 import ImageSlider from "./slider/ImageSlider";
+
+const SPORT = "Basketball";
+const POSITION = "Forward";
+const HEIGHT = "6'2\"";
+const WEIGHT = "185 lbs";
+const AGE = 21;
 
 export default function Hero({ profile, gallery }) {
   const bgImage =
@@ -21,9 +29,19 @@ export default function Hero({ profile, gallery }) {
       <div className="container">
         <div className="row align-items-center gy-5">
           <div className="col-lg-7">
-            <div className="hero-tag">
-              <span className="hero-tag-dot" />
-              Athlete Profile
+            <div className="hero-tags-row">
+              <div className="hero-tag">
+                <span className="hero-tag-dot" />
+                Athlete Profile
+              </div>
+              <div className="hero-tag hero-tag-sport">
+                <span className="hero-tag-dot hero-tag-dot-sport" />
+                {SPORT}
+              </div>
+              <div className="hero-tag hero-tag-position">
+                <span className="hero-tag-dot hero-tag-dot-position" />
+                {POSITION}
+              </div>
             </div>
 
             <h1 className="hero-name">
@@ -39,6 +57,44 @@ export default function Hero({ profile, gallery }) {
             </h1>
 
             <p className="hero-slogan">{profile.slogan}</p>
+
+            <div className="tw-inline-flex tw-items-center tw-gap-6 tw-mt-4 tw-mb-8">
+              {[
+                {
+                  label: "Height",
+                  value: HEIGHT,
+                  icon: <Ruler size={14} />,
+                },
+                {
+                  label: "Weight",
+                  value: WEIGHT,
+                  icon: <Weight size={14} />,
+                },
+                {
+                  label: "Age",
+                  value: `${AGE} yrs`,
+                  icon: <Clock size={14} />,
+                },
+              ].map((stat, idx, arr) => (
+                <div
+                  key={stat.label}
+                  className="tw-flex tw-items-center tw-gap-6"
+                >
+                  <div className="tw-flex tw-items-center tw-gap-2">
+                    <span className="tw-text-[#c5f82a]">{stat.icon}</span>
+                    <span className="tw-text-[10px] tw-uppercase tw-tracking-[0.15em] tw-text-gray-500 tw-font-medium">
+                      {stat.label}
+                    </span>
+                    <span className="tw-text-sm tw-font-bold tw-text-white">
+                      {stat.value}
+                    </span>
+                  </div>
+                  {idx < arr.length - 1 && (
+                    <div className="tw-w-px tw-h-4 tw-bg-white/15" />
+                  )}
+                </div>
+              ))}
+            </div>
 
             <div className="hero-cta-group">
               <a href="#portfolio" className="btn-sport">
