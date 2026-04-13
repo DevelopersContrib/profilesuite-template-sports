@@ -5,14 +5,17 @@ export function removeSpecialCharacters(text) {
 }
 
 const S3_BASE = "https://profilesuite-assets.s3.us-west-2.amazonaws.com";
-const isDev = process.env.NODE_ENV === "development";
+
+function buildUrl(folder, filename) {
+  if (!filename) return "";
+  const path = filename.startsWith(`${folder}/`) ? filename : `${folder}/${filename}`;
+  return `${S3_BASE}/${path}`;
+}
 
 export function getGalleryUrl(filename) {
-  const prefix = isDev ? "uploads/gallery/" : "";
-  return `${S3_BASE}/${prefix}${filename}`;
+  return buildUrl("gallery", filename);
 }
 
 export function getProfileUrl(filename) {
-  const prefix = isDev ? "uploads/profile/" : "";
-  return `${S3_BASE}/${prefix}${filename}`;
+  return buildUrl("profile", filename);
 }
