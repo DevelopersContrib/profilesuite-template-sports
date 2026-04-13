@@ -3,6 +3,7 @@ import Hero from "../components/hero";
 import Gallery from "../components/gallery";
 import Biography from "../components/biography";
 import Schedule from "../components/schedule";
+import CareerTimeline from "../components/career-timeline";
 import Contact from "../components/contact";
 import Footer from "../components/footer";
 import { getDomain, getProfile, updateProfile } from "../lib/data";
@@ -22,6 +23,7 @@ export default async function Home() {
       <Hero profile={profile} gallery={gallery} />
       <Gallery gallery={gallery} />
       <Biography profile={profile} social={social} links={links} />
+      <CareerTimeline />
       <Schedule />
       <Contact profile={profile} />
       <Footer domain={domain} social={social} />
