@@ -48,7 +48,7 @@ export default function Biography({ profile, social, links }) {
           </div>
         )}
 
-        <div className="row g-4" id="contact">
+        <div className="row g-4">
           {locations.length > 0 && (
             <div className="col-md-4">
               <div className="detail-block">
