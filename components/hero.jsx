@@ -3,13 +3,24 @@ import { Clock, Ruler, Weight } from "lucide-react";
 import ImageSlider from "./slider/ImageSlider";
 import { getGalleryUrl, getProfileUrl } from "@/lib/utils";
 
-const SPORT = "Basketball";
-const POSITION = "Forward";
-const HEIGHT = "6'2\"";
-const WEIGHT = "185 lbs";
-const AGE = 21;
+function calculateAge(dob) {
+  if (!dob) return null;
+  const birth = new Date(dob);
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const m = today.getMonth() - birth.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+  return age;
+}
 
 export default function Hero({ profile, gallery }) {
+  const sport = profile.sports_name;
+  const position = profile.sports_position;
+  const height = profile.sports_height;
+  const weight = profile.sports_weight;
+
+  const age = calculateAge(profile.date_of_birth);
+
   const bgImage =
     gallery.length > 0
       ? getGalleryUrl(gallery[0].filename)
@@ -35,14 +46,18 @@ export default function Hero({ profile, gallery }) {
                 <span className="hero-tag-dot" />
                 Athlete Profile
               </div>
-              <div className="hero-tag hero-tag-sport">
-                <span className="hero-tag-dot hero-tag-dot-sport" />
-                {SPORT}
-              </div>
-              <div className="hero-tag hero-tag-position">
-                <span className="hero-tag-dot hero-tag-dot-position" />
-                {POSITION}
-              </div>
+              {sport && (
+                <div className="hero-tag hero-tag-sport">
+                  <span className="hero-tag-dot hero-tag-dot-sport" />
+                  {sport}
+                </div>
+              )}
+              {position && (
+                <div className="hero-tag hero-tag-position">
+                  <span className="hero-tag-dot hero-tag-dot-position" />
+                  {position}
+                </div>
+              )}
             </div>
 
             <h1 className="hero-name">
@@ -59,43 +74,47 @@ export default function Hero({ profile, gallery }) {
 
             <p className="hero-slogan">{profile.slogan}</p>
 
-            <div className="tw-inline-flex tw-items-center tw-gap-6 tw-mt-4 tw-mb-8">
-              {[
-                {
-                  label: "Height",
-                  value: HEIGHT,
-                  icon: <Ruler size={14} />,
-                },
-                {
-                  label: "Weight",
-                  value: WEIGHT,
-                  icon: <Weight size={14} />,
-                },
-                {
-                  label: "Age",
-                  value: `${AGE} yrs`,
-                  icon: <Clock size={14} />,
-                },
-              ].map((stat, idx, arr) => (
-                <div
-                  key={stat.label}
-                  className="tw-flex tw-items-center tw-gap-6"
-                >
-                  <div className="tw-flex tw-items-center tw-gap-2">
-                    <span className="tw-text-[#c5f82a]">{stat.icon}</span>
-                    <span className="tw-text-[10px] tw-uppercase tw-tracking-[0.15em] tw-text-gray-500 tw-font-medium">
-                      {stat.label}
-                    </span>
-                    <span className="tw-text-sm tw-font-bold tw-text-white">
-                      {stat.value}
-                    </span>
-                  </div>
-                  {idx < arr.length - 1 && (
-                    <div className="tw-w-px tw-h-4 tw-bg-white/15" />
-                  )}
-                </div>
-              ))}
-            </div>
+            {(height || weight || age !== null) && (
+              <div className="tw-inline-flex tw-items-center tw-gap-6 tw-mt-4 tw-mb-8">
+                {[
+                  height && {
+                    label: "Height",
+                    value: height,
+                    icon: <Ruler size={14} />,
+                  },
+                  weight && {
+                    label: "Weight",
+                    value: weight,
+                    icon: <Weight size={14} />,
+                  },
+                  age !== null && {
+                    label: "Age",
+                    value: `${age} yrs`,
+                    icon: <Clock size={14} />,
+                  },
+                ]
+                  .filter(Boolean)
+                  .map((stat, idx, arr) => (
+                    <div
+                      key={stat.label}
+                      className="tw-flex tw-items-center tw-gap-6"
+                    >
+                      <div className="tw-flex tw-items-center tw-gap-2">
+                        <span className="tw-text-[#c5f82a]">{stat.icon}</span>
+                        <span className="tw-text-[10px] tw-uppercase tw-tracking-[0.15em] tw-text-gray-500 tw-font-medium">
+                          {stat.label}
+                        </span>
+                        <span className="tw-text-sm tw-font-bold tw-text-white">
+                          {stat.value}
+                        </span>
+                      </div>
+                      {idx < arr.length - 1 && (
+                        <div className="tw-w-px tw-h-4 tw-bg-white/15" />
+                      )}
+                    </div>
+                  ))}
+              </div>
+            )}
 
             <div className="hero-cta-group">
               <a href="#portfolio" className="btn-sport">

@@ -1,6 +1,14 @@
 "use client";
 import { useState } from "react";
-import { Mail, Send, User, MessageSquare, ChevronDown } from "lucide-react";
+import {
+  Mail,
+  Send,
+  User,
+  MessageSquare,
+  ChevronDown,
+  CheckCircle,
+  Loader2,
+} from "lucide-react";
 
 const INQUIRY_TYPES = [
   "Recruitment Inquiry",
@@ -15,7 +23,11 @@ export default function Contact({ profile }) {
     name: "",
     email: "",
     message: "",
+    website: "", // honeypot
   });
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [errorMsg, setErrorMsg] = useState("");
+  const [loadedAt] = useState(() => Date.now());
 
   const displayName = profile?.name || "this athlete";
 
@@ -23,8 +35,37 @@ export default function Contact({ profile }) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatus("sending");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, _t: loadedAt }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setErrorMsg(data.error || "Something went wrong.");
+        setStatus("error");
+        return;
+      }
+
+      setStatus("sent");
+      setFormData({
+        inquiryType: INQUIRY_TYPES[0],
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch {
+      setErrorMsg("Network error. Please try again.");
+      setStatus("error");
+    }
   };
 
   return (
@@ -138,14 +179,44 @@ export default function Contact({ profile }) {
                 </div>
               </div>
 
-              {/* Submit */}
-              <button
-                type="submit"
-                className="tw-w-full tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-amber-500 hover:tw-bg-amber-400 tw-text-gray-900 tw-font-bold tw-text-sm tw-uppercase tw-tracking-wider tw-py-3.5 tw-px-6 tw-rounded-lg tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300 hover:tw-shadow-[0_8px_25px_rgba(245,158,11,0.3)]"
-              >
-                <Send size={16} />
-                Send Recruitment Message
-              </button>
+              {/* honeypot */}
+              <div className="tw-absolute tw-opacity-0 tw-h-0 tw-overflow-hidden" aria-hidden="true" tabIndex={-1}>
+                <input
+                  type="text"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleChange}
+                  autoComplete="off"
+                />
+              </div>
+
+              {status === "error" && (
+                <p className="tw-text-red-400 tw-text-sm tw-m-0">
+                  {errorMsg}
+                </p>
+              )}
+
+              {status === "sent" ? (
+                <div className="tw-w-full tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-emerald-600 tw-text-white tw-font-bold tw-text-sm tw-uppercase tw-tracking-wider tw-py-3.5 tw-px-6 tw-rounded-lg">
+                  <CheckCircle size={16} />
+                  Message Sent!
+                </div>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="tw-w-full tw-flex tw-items-center tw-justify-center tw-gap-2 tw-bg-amber-500 hover:tw-bg-amber-400 tw-text-gray-900 tw-font-bold tw-text-sm tw-uppercase tw-tracking-wider tw-py-3.5 tw-px-6 tw-rounded-lg tw-border-none tw-cursor-pointer tw-transition-all tw-duration-300 hover:tw-shadow-[0_8px_25px_rgba(245,158,11,0.3)] disabled:tw-opacity-60 disabled:tw-cursor-not-allowed"
+                >
+                  {status === "sending" ? (
+                    <Loader2 size={16} className="tw-animate-spin" />
+                  ) : (
+                    <Send size={16} />
+                  )}
+                  {status === "sending"
+                    ? "Sending..."
+                    : "Send Recruitment Message"}
+                </button>
+              )}
             </form>
           </div>
         </div>
