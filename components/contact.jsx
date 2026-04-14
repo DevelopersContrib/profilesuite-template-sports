@@ -23,9 +23,11 @@ export default function Contact({ profile }) {
     name: "",
     email: "",
     message: "",
+    website: "", // honeypot
   });
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
   const [errorMsg, setErrorMsg] = useState("");
+  const [loadedAt] = useState(() => Date.now());
 
   const displayName = profile?.name || "this athlete";
 
@@ -42,7 +44,7 @@ export default function Contact({ profile }) {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, _t: loadedAt }),
       });
 
       const data = await res.json();
@@ -175,6 +177,17 @@ export default function Contact({ profile }) {
                     className="tw-w-full tw-bg-transparent tw-border-none tw-outline-none tw-text-sm tw-text-white placeholder:tw-text-gray-600 tw-p-0 tw-resize-none"
                   />
                 </div>
+              </div>
+
+              {/* honeypot */}
+              <div className="tw-absolute tw-opacity-0 tw-h-0 tw-overflow-hidden" aria-hidden="true" tabIndex={-1}>
+                <input
+                  type="text"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleChange}
+                  autoComplete="off"
+                />
               </div>
 
               {status === "error" && (

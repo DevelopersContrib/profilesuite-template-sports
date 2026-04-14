@@ -4,7 +4,18 @@ import { getDomain } from "@/lib/data";
 
 export async function POST(request) {
   try {
-    const { inquiryType, name, email, message } = await request.json();
+    const { inquiryType, name, email, message, website, _t } =
+      await request.json();
+
+    // honeypot — real users never fill this
+    if (website) {
+      return NextResponse.json({ success: true }); // silent OK so bots think it worked
+    }
+
+    // timing — reject if submitted faster than 3 seconds
+    if (_t && Date.now() - _t < 3000) {
+      return NextResponse.json({ success: true });
+    }
 
     if (!name || !email || !message) {
       return NextResponse.json(
