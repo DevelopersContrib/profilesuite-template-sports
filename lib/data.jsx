@@ -65,6 +65,8 @@ export async function getProfile() {
     [galleryRows],
     [linkRows],
     [socialRows],
+    [timelineRows],
+    [eventRows],
   ] = await Promise.all([
     pool.query("SELECT * FROM member_profile WHERE member_id = ?", [memberId]),
     pool.query("SELECT * FROM profile_education WHERE member_id = ? ORDER BY from_date DESC", [memberId]),
@@ -73,6 +75,8 @@ export async function getProfile() {
     pool.query("SELECT * FROM profile_gallery WHERE member_id = ?", [memberId]),
     pool.query("SELECT * FROM profile_links WHERE member_id = ?", [memberId]),
     pool.query("SELECT * FROM profile_social WHERE member_id = ?", [memberId]),
+    pool.query("SELECT * FROM profile_timeline WHERE member_id = ? ORDER BY date_from DESC", [memberId]),
+    pool.query("SELECT * FROM profile_events WHERE member_id = ? ORDER BY date DESC", [memberId]),
   ]);
 
   return {
@@ -84,6 +88,8 @@ export async function getProfile() {
       gallery: galleryRows,
       links: linkRows,
       socials: socialRows[0] || {},
+      timeline: timelineRows,
+      events: eventRows,
     },
   };
 }

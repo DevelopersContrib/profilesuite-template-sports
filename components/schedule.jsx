@@ -1,26 +1,12 @@
 "use client";
 import { Calendar, MapPin } from "lucide-react";
 
-const EVENTS = [
-  {
-    title: "Pre-Season Training Camp",
-    date: "2025-06-01",
-    type: "Training",
-    location: "Tagaytay Sports Complex",
-  },
-  {
-    title: "National Team Tryouts",
-    date: "2025-05-10",
-    type: "Tryout",
-    location: "Rizal Memorial Coliseum",
-  },
-  {
-    title: "PVL Invitational Tournament",
-    date: "2025-04-20",
-    type: "Match",
-    location: "Araneta Coliseum, Manila",
-  },
-];
+const DEFAULT_COLORS = {
+  bg: "tw-bg-emerald-500/15",
+  text: "tw-text-emerald-400",
+  dot: "tw-bg-emerald-400",
+  border: "tw-border-emerald-500/20",
+};
 
 const TYPE_COLORS = {
   Training: {
@@ -55,7 +41,7 @@ function formatDate(dateStr) {
   return { day, month, full };
 }
 
-export default function Schedule() {
+export default function Schedule({ events = [] }) {
   return (
     <section className="section-surface py-5" id="schedule">
       <div className="container py-4">
@@ -70,11 +56,9 @@ export default function Schedule() {
         <hr className="section-divider" />
 
         <div className="row g-3 tw-mt-8">
-          {[...EVENTS]
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .map((event, idx) => {
+          {events.map((event, idx) => {
               const { day, month, full } = formatDate(event.date);
-              const colors = TYPE_COLORS[event.type] || TYPE_COLORS.Match;
+              const colors = TYPE_COLORS[event.type] || DEFAULT_COLORS;
 
               return (
                 <div key={idx} className="col-lg-4 col-md-6">
@@ -109,15 +93,17 @@ export default function Schedule() {
                         </span>
                       </div>
 
-                      <div className="tw-flex tw-items-center tw-gap-1.5 tw-mb-1">
-                        <MapPin
-                          size={11}
-                          className="tw-text-gray-500 tw-shrink-0"
-                        />
-                        <span className="tw-text-xs tw-text-gray-400">
-                          {event.location}
-                        </span>
-                      </div>
+                      {event.location && (
+                        <div className="tw-flex tw-items-center tw-gap-1.5 tw-mb-1">
+                          <MapPin
+                            size={11}
+                            className="tw-text-gray-500 tw-shrink-0"
+                          />
+                          <span className="tw-text-xs tw-text-gray-400">
+                            {event.location}
+                          </span>
+                        </div>
+                      )}
 
                       <span className="tw-text-[11px] tw-text-gray-600">
                         {full}
