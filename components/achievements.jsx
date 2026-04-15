@@ -1,52 +1,5 @@
 "use client";
-import {
-  Sparkles,
-  Crown,
-  Medal,
-  Trophy,
-  Star,
-  Gem,
-  Rocket,
-} from "lucide-react";
-
-const ACHIEVEMENTS = [
-  {
-    date: "2025-03-15",
-    title: "League MVP — 2024-25 Season",
-    desc: "Named Most Valuable Player after leading the team in points, assists, and win share.",
-    icon: Crown,
-  },
-  {
-    date: "2025-02-02",
-    title: "All-Star Game Starter",
-    desc: "Voted as a starting guard by fans and coaches for the national All-Star Weekend.",
-    icon: Star,
-  },
-  {
-    date: "2024-11-20",
-    title: "Scoring Title — Conference Leader",
-    desc: "Finished the regular conference with a league-leading 26.4 points per game.",
-    icon: Trophy,
-  },
-  {
-    date: "2024-07-08",
-    title: "Gold Medal — SEA Games",
-    desc: "Helped secure the gold medal for the national team in the basketball finals.",
-    icon: Medal,
-  },
-  {
-    date: "2024-04-10",
-    title: "Rookie of the Year",
-    desc: "Recognized as the top first-year performer with record-breaking debut stats.",
-    icon: Rocket,
-  },
-  {
-    date: "2023-12-01",
-    title: "Hall of Fame Nomination",
-    desc: "Nominated to the collegiate Hall of Fame for a decorated university career.",
-    icon: Gem,
-  },
-];
+import { Sparkles, Trophy } from "lucide-react";
 
 function formatAchievementDate(dateStr) {
   const d = new Date(dateStr);
@@ -56,7 +9,7 @@ function formatAchievementDate(dateStr) {
   return { year, month, day };
 }
 
-export default function Achievements() {
+export default function Achievements({ achievements = [] }) {
   return (
     <section className="section-surface py-5" id="achievements">
       <div className="container py-4">
@@ -71,8 +24,7 @@ export default function Achievements() {
         <hr className="section-divider" />
 
         <div className="tw-mt-10 tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-4 sm:tw-gap-5">
-          {ACHIEVEMENTS.map((item, idx) => {
-            const Icon = item.icon;
+          {achievements.map((item, idx) => {
             const { year, month, day } = formatAchievementDate(item.date);
             const isFeatured = idx === 0;
 
@@ -148,7 +100,7 @@ export default function Achievements() {
                   <div className="tw-flex-1 tw-min-w-0">
                     <div className="tw-flex tw-items-center tw-gap-2 tw-mb-2">
                       <div className="tw-inline-flex tw-items-center tw-justify-center tw-w-7 tw-h-7 tw-rounded-md tw-bg-[#c5f82a]/10 tw-text-[#c5f82a] tw-transition-all tw-duration-300 group-hover:tw-rotate-6 group-hover:tw-bg-[#c5f82a]/20">
-                        <Icon size={14} />
+                        <Trophy size={14} />
                       </div>
                       <span className="tw-text-[10px] tw-font-bold tw-uppercase tw-tracking-[0.2em] tw-text-gray-500 tw-font-mono">
                         #{String(idx + 1).padStart(2, "0")} · Award
@@ -165,15 +117,17 @@ export default function Achievements() {
                       {item.title}
                     </h3>
 
-                    <p
-                      className={`tw-text-gray-400 tw-leading-relaxed tw-mb-0 tw-mt-2 ${
-                        isFeatured
-                          ? "tw-text-sm sm:tw-text-[15px]"
-                          : "tw-text-xs sm:tw-text-[13px]"
-                      }`}
-                    >
-                      {item.desc}
-                    </p>
+                    {item.stats && (
+                      <p
+                        className={`tw-text-gray-400 tw-leading-relaxed tw-mb-0 tw-mt-2 ${
+                          isFeatured
+                            ? "tw-text-sm sm:tw-text-[15px]"
+                            : "tw-text-xs sm:tw-text-[13px]"
+                        }`}
+                      >
+                        {item.stats}
+                      </p>
+                    )}
 
                     {/* Bottom marker */}
                     <div className="tw-mt-3 tw-flex tw-items-center tw-gap-2">
