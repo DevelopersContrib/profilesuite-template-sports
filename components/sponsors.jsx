@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import { Handshake, ExternalLink, Building } from "lucide-react";
 
 function getInitials(title) {
@@ -26,11 +27,14 @@ function SponsorLogo({ logo, title }) {
 
   if (hasLogo) {
     return (
-      <img
+      <Image
         src={logo}
         alt={`${title} logo`}
+        width={200}
+        height={112}
         onError={() => setFailed(true)}
         className="tw-max-w-full tw-max-h-full tw-object-contain tw-transition-all tw-duration-500 group-hover:tw-scale-105"
+        unoptimized
       />
     );
   }
