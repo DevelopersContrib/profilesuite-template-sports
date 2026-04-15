@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { getGalleryUrl } from "@/lib/utils";
 import { Handshake, ExternalLink, Building } from "lucide-react";
 
 function getInitials(title) {
@@ -28,7 +29,7 @@ function SponsorLogo({ logo, title }) {
   if (hasLogo) {
     return (
       <Image
-        src={logo}
+        src={getGalleryUrl(logo)}
         alt={`${title} logo`}
         width={200}
         height={112}
