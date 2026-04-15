@@ -21,6 +21,9 @@ export default async function Home() {
   const social = c.data.socials;
   const timeline = c.data.timeline;
   const events = c.data.events;
+  const stats = c.data.stats;
+  const achievements = c.data.achievements;
+  const sponsors = c.data.sponsors;
 
   return (
     <>
@@ -29,10 +32,10 @@ export default async function Home() {
       <Gallery gallery={gallery} />
       <Biography profile={profile} social={social} links={links} />
       <CareerTimeline timeline={timeline} />
-      <StatsPerformance />
-      <Achievements />
+      <StatsPerformance profile={profile} stats={stats} />
+      <Achievements achievements={achievements} />
       <Schedule events={events} />
-      <Sponsors />
+      <Sponsors sponsors={sponsors} />
       <Contact profile={profile} />
       <Footer domain={domain} social={social} />
     </>

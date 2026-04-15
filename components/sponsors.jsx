@@ -2,39 +2,6 @@
 import { useState } from "react";
 import { Handshake, ExternalLink, Building } from "lucide-react";
 
-const SPONSORS = [
-  {
-    title: "Nike Philippines",
-    website: "https://www.nike.com/ph",
-    logo: "",
-  },
-  {
-    title: "Gatorade Sports Fuel",
-    website: "https://www.gatorade.com",
-    logo: "",
-  },
-  {
-    title: "Under Armour",
-    website: "https://www.underarmour.com",
-    logo: "",
-  },
-  {
-    title: "Wilson Sporting Goods",
-    website: "https://www.wilson.com",
-    logo: "",
-  },
-  {
-    title: "PLDT Home Fibr",
-    website: "https://pldthome.com",
-    logo: "",
-  },
-  {
-    title: "Philippine Sports Commission",
-    website: "https://psc.gov.ph",
-    logo: "",
-  },
-];
-
 function getInitials(title) {
   return title
     .split(/\s+/)
@@ -90,7 +57,7 @@ function SponsorLogo({ logo, title }) {
   );
 }
 
-export default function Sponsors() {
+export default function Sponsors({ sponsors = [] }) {
   return (
     <section className="section-surface py-5" id="sponsors">
       <div className="container py-4">
@@ -105,10 +72,10 @@ export default function Sponsors() {
         <hr className="section-divider" />
 
         <div className="tw-mt-10 tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-3 tw-gap-4 sm:tw-gap-5">
-          {SPONSORS.map((sponsor, idx) => (
+          {sponsors.map((sponsor, idx) => (
             <a
-              key={idx}
-              href={sponsor.website}
+              key={sponsor.id || idx}
+              href={sponsor.link}
               target="_blank"
               rel="noopener noreferrer"
               className="tw-group tw-relative tw-block tw-no-underline tw-overflow-hidden tw-rounded-2xl tw-border tw-border-white/[0.08] tw-bg-white/[0.03] tw-backdrop-blur-sm tw-p-5 tw-transition-all tw-duration-500 hover:tw-border-[#c5f82a]/35 hover:tw-bg-white/[0.06] hover:-tw-translate-y-1"
@@ -138,7 +105,7 @@ export default function Sponsors() {
 
                 <div className="tw-mt-2 tw-inline-flex tw-items-center tw-gap-1.5 tw-text-[11px] tw-font-mono tw-text-gray-500 tw-transition-colors tw-duration-300 group-hover:tw-text-[#c5f82a]">
                   <span className="tw-w-4 tw-h-px tw-bg-gradient-to-r tw-from-transparent tw-to-[#c5f82a]/60" />
-                  {formatHost(sponsor.website)}
+                  {formatHost(sponsor.link)}
                   <ExternalLink
                     size={10}
                     className="tw-transition-transform tw-duration-300 group-hover:tw-translate-x-0.5 group-hover:-tw-translate-y-0.5"

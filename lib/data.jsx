@@ -67,6 +67,9 @@ export async function getProfile() {
     [socialRows],
     [timelineRows],
     [eventRows],
+    [statsRows],
+    [achievementRows],
+    [sponsorRows],
   ] = await Promise.all([
     pool.query("SELECT * FROM member_profile WHERE member_id = ?", [memberId]),
     pool.query("SELECT * FROM profile_education WHERE member_id = ? ORDER BY from_date DESC", [memberId]),
@@ -77,6 +80,9 @@ export async function getProfile() {
     pool.query("SELECT * FROM profile_social WHERE member_id = ?", [memberId]),
     pool.query("SELECT * FROM profile_timeline WHERE member_id = ? ORDER BY date_from DESC", [memberId]),
     pool.query("SELECT * FROM profile_events WHERE member_id = ? ORDER BY date DESC", [memberId]),
+    pool.query("SELECT * FROM profile_stats WHERE member_id = ? ORDER BY date DESC", [memberId]),
+    pool.query("SELECT * FROM profile_achievements WHERE member_id = ? ORDER BY date DESC", [memberId]),
+    pool.query("SELECT * FROM profile_sponsors_affiliations WHERE member_id = ?", [memberId]),
   ]);
 
   return {
@@ -90,6 +96,9 @@ export async function getProfile() {
       socials: socialRows[0] || {},
       timeline: timelineRows,
       events: eventRows,
+      stats: statsRows,
+      achievements: achievementRows,
+      sponsors: sponsorRows,
     },
   };
 }
